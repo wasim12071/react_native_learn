@@ -8,7 +8,7 @@ export const Splash = (props) => {
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    color: isDarkMode ? Colors.lighter : Colors.darker,
+    color: isDarkMode ? Colors.white : Colors.darker,
   };
   
   useEffect(() => {
@@ -17,10 +17,10 @@ export const Splash = (props) => {
 
   return (
     <View style={[styles.background, backgroundStyle]}>
-      <Text style={styles.heading}>
+      <Text style={[styles.heading, { color: isDarkMode ? Colors.white : Colors.darker }]}>
         Wasim Hassan Khan
       </Text>
-      <Text style={styles.subText}>
+      <Text style={[styles.subText, { color: isDarkMode ? Colors.white : Colors.darker }]}>
         Version: 0.0.1
       </Text>
     </View>
