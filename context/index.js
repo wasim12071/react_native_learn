@@ -29,7 +29,7 @@ export const ContextWrapper = (props) => {
         type: severity,
         text1: message,
         position: 'bottom',
-        bottomOffset: isIOS ? 60 : 35,
+        bottomOffset: isIOS ? 50 : 25,
       });
       setTimeout(() => { Toast.hide() }, 10000)
     },
