@@ -19,11 +19,11 @@ export const Header = (props) => {
                 onPress && 
                 <TouchableOpacity onPress={onPress}>
                     <Text style={styles.backButton}>
-                        <AntIcon name="arrowleft" style={styles.backButtonIcon}/>
+                        <AntIcon name="arrowleft" style={styles.backButtonIcon} color={ isDarkMode ? Colors.white : Colors.dark }/>
                     </Text>
                 </TouchableOpacity>
             }
-            <Text style={styles.heading}>
+            <Text style={[styles.heading, { color: isDarkMode ? Colors.white : Colors.dark }, { marginLeft: onPress ? 0 : 10 }]}>
                 {children}
             </Text>
         </View>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         borderBottomColor: Colors.darker,
         borderBottomWidth: 1,
-        color: Colors.lighter,
+        color: Colors.white,
         backgroundColor: Colors.dark,
         display: 'flex',
         flexDirection: 'row'
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
         fontWeight: '700'
     },
     backButton: {
+        marginLeft: 10,
         marginRight: 10,
         paddingTop: 5
     },

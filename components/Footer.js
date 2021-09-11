@@ -10,7 +10,7 @@ export const Footer = (props) => {
 
     return (
         <View style={isDarkMode ? styles.containerDark : styles.containerLight}>
-            <Text style={styles.footer}>
+            <Text style={[styles.footer, { color: isDarkMode ? Colors.white : Colors.dark }]}>
                 {children}
             </Text>
         </View>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderTopColor: Colors.darker,
         borderTopWidth: 1,
-        color: Colors.lighter,
+        color: Colors.white,
         backgroundColor: Colors.dark,
         display: 'flex',
         flexDirection: 'row'

@@ -1,12 +1,14 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, useColorScheme } from 'react-native';
 import Colors from './../utils/colors';
 
 export const Button = ({ children, onPress, color, backgroundColor }) => {
 
+  const isDarkMode = useColorScheme() === 'dark';
+
     return (
         <TouchableOpacity onPress={onPress}>
-              <Text style={[ styles.sectionButton, { backgroundColor: backgroundColor || Colors.darker, color: color || Colors.lighter } ]}>
+              <Text style={[ styles.sectionButton, { backgroundColor: backgroundColor || (!isDarkMode ? Colors.darker : Colors.lighter ), color: color || (!isDarkMode ? Colors.lighter : Colors.darker ) } ]}>
                 {children}
               </Text>
         </TouchableOpacity>

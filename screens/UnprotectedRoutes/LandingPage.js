@@ -32,7 +32,7 @@ export const LandingPage = (props) => {
   return (
     <SafeAreaView style={[backgroundStyle, { height: Dimensions.get('window').height }, { paddingBottom: 20}]}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Header backTo="Splash" onPress={goBack}>
+      <Header onPress={goBack}>
           Welcome!
       </Header>
       <ScrollView contentInsetAdjustmentBehavior="automatic" style={[backgroundStyle]}>
