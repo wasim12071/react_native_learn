@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Toast from 'react-native-toast-message';
 import { UIManager, Platform } from 'react-native';
+import { initAxiosHeaders, resetInterceptor } from '../utils/apis';
 
 const store = {
   snackbar: {
     message: '',
     severity: 'error'
   },
-  isLoading: false
+  isLoading: false,
+  auth: {
+    token: ''
+  }
 };
 
 export const MainContext = React.createContext(store);
@@ -37,6 +41,14 @@ export const ContextWrapper = (props) => {
       setState({ isLoading });
     }
   }
+
+
+  const { token } = state.auth;
+  useEffect(() => {
+    if (token && token !== '') {
+      initAxiosHeaders({ token }, contextData.logout);
+    }
+  }, [token])
 
   UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   return (

@@ -11,7 +11,7 @@ export const Footer = (props) => {
     return (
         <View style={isDarkMode ? styles.containerDark : styles.containerLight}>
             <Text style={[styles.footer, { color: isDarkMode ? Colors.white : Colors.dark }]}>
-                {children}
+                {children || ' Made by Waism Hassan Khan!'}
             </Text>
         </View>
     )

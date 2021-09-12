@@ -2,7 +2,6 @@
 import React from 'react';
 import { Text, useColorScheme, View, StyleSheet } from 'react-native';
 import Colors from '../utils/colors';
-import { MainContext } from './../context';
 
 export const Section = ({children, title}) => {
   
@@ -10,9 +9,9 @@ export const Section = ({children, title}) => {
 
     return (
       <View style={styles.sectionContainer}>
-        <Text style={[ styles.sectionTitle, { color: isDarkMode ? Colors.white : Colors.black } ]}>
-          {title}
-        </Text>
+        {
+          title && <Text style={[ styles.sectionTitle, { color: isDarkMode ? Colors.white : Colors.black } ]}>{title}</Text>
+        }
         <Text style={[ styles.sectionDescription, { color: isDarkMode ? Colors.light : Colors.dark } ]}>
           {children}
         </Text>
@@ -29,11 +28,13 @@ const styles = StyleSheet.create({
     sectionTitle: {
       fontSize: 24,
       fontWeight: '600',
+      textAlign: 'center'
     },
     sectionDescription: {
       marginTop: 8,
       fontSize: 18,
       fontWeight: '400',
+      textAlign: 'center'
     }
 });
   

@@ -24,7 +24,7 @@ export const Header = (props) => {
                 </TouchableOpacity>
             }
             <Text style={[styles.heading, { color: isDarkMode ? Colors.white : Colors.dark }, { marginLeft: onPress ? 0 : 10 }]}>
-                {children}
+                {children || 'Welcome!'}
             </Text>
         </View>
     )

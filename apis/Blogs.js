@@ -1,11 +1,11 @@
 import { responseHandler } from '../utils/apis';
 import axios from 'axios';
-import { BASE_URL, AUTH } from './Constants';
+import { BASE_URL, BLOGS } from './Constants';
 
-export const Authenticate = {
-  login: async (email, password) => {
+export const Blogs = {
+  getBlogs: async () => {
     try {
-      const response = await axios.post(`${BASE_URL}${AUTH.LOGIN}`, { email, password });
+      const response = await axios.get(`${BASE_URL}${BLOGS.GET}`);
       return responseHandler(response);
     } catch (err) {
       return responseHandler(err.response ? err.response : err );
