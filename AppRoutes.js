@@ -5,6 +5,9 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useColorScheme, StatusBar } from 'react-native';
+import { enableScreens } from 'react-native-screens';
+
+enableScreens(false);
 
 const Stack = createStackNavigator();
 
@@ -15,7 +18,7 @@ const UnProtectedRoutesNavigation = () => {
   return (
     <>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} translucent />
-      <Stack.Navigator initialRouteName={'Splash'} screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName={'Splash'} screenOptions={{ headerShown: false, unmountInactiveScreens: true }}>
         {
           Object.keys(UnprotectedRoutes).map((key) => (
             <Stack.Screen key={key} name={createName(key)} component={UnprotectedRoutes[key]} />
@@ -32,7 +35,7 @@ const ProtectedRoutesNavigation = () => {
   return (
     <>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} translucent />
-      <Stack.Navigator initialRouteName={'MyHome'} screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName={'MyHome'} screenOptions={{ headerShown: false, unmountInactiveScreens: true }}>
         {
           Object.keys(ProtectedRoutes).map((key) => (
             <Stack.Screen key={key} name={createName(key)} component={ProtectedRoutes[key]} />
@@ -48,7 +51,7 @@ export const AppRoutes = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer ref={navigationRef}>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator screenOptions={{ headerShown: false, unmountInactiveScreens: true }}>
           <Stack.Screen name={'Signout_Route'} component={UnProtectedRoutesNavigation} />
           <Stack.Screen name={'Protected_Route'} component={ProtectedRoutesNavigation} />
         </Stack.Navigator>
