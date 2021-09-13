@@ -16,6 +16,8 @@ target 'WasimHassanKhan' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
   target 'WasimHassanKhanTests' do
     inherit! :complete
     # Pods for testing
