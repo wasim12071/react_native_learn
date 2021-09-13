@@ -5,14 +5,13 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useColorScheme, StatusBar } from 'react-native';
-import { enableScreens } from 'react-native-screens';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MyTabBar } from './components'
 
-enableScreens(false);
-
+const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-
-const UnProtectedRoutesNavigation = () => {
+const UnProtectedRoutesNavigation = (props) => {
   const isDarkMode = useColorScheme() === 'dark';
   const createName = key => key.split('_').join(' '); 
   return (
@@ -29,19 +28,16 @@ const UnProtectedRoutesNavigation = () => {
   );
 }
 
-const ProtectedRoutesNavigation = () => {
+const ProtectedRoutesNavigation = (props) => {
   const isDarkMode = useColorScheme() === 'dark';
   const createName = key => key.split('_').join(' '); 
   return (
     <>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} translucent />
-      <Stack.Navigator initialRouteName={'MyHome'} screenOptions={{ headerShown: false, unmountInactiveScreens: true }}>
-        {
-          Object.keys(ProtectedRoutes).map((key) => (
-            <Stack.Screen key={key} name={createName(key)} component={ProtectedRoutes[key]} />
-          ))
-        }
-      </Stack.Navigator>
+      <Tab.Navigator tabBar={props => <MyTabBar {...props} />} initialRouteName={'MyHome'} screenOptions={{ headerShown: false, unmountInactiveScreens: true }}>
+        <Tab.Screen key={'MyHome_001'} name={createName('MyHome')} component={ProtectedRoutes.MyHome} />
+        <Tab.Screen key={'MyProfile_002'} name={createName('MyProfile')} component={ProtectedRoutes.MyProfile} />
+      </Tab.Navigator>
     </>
   );
 }
