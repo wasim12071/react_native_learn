@@ -61,7 +61,7 @@ export const MyProfile = (props) => {
           }
           {
             PAGE_DATA.user && PAGE_DATA.user.firstName && <Text style={[ styles.desc, styles.heading, { color: isDarkMode ? Colors.white : Colors.darker } ]}>
-              {PAGE_DATA.user.firstName} {PAGE_DATA.user.lastName}
+              {PAGE_DATA.user.firstName} {PAGE_DATA.user.lastName ? PAGE_DATA.user.lastName : ''}
             </Text>
           }
           {
