@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
-import AntIcon from 'react-native-vector-icons/AntDesign'
-import { Dimensions, SafeAreaView, StatusBar, StyleSheet, Text, useColorScheme, View, Keyboard } from 'react-native';
+import { Dimensions, SafeAreaView, StyleSheet, Text, useColorScheme, View, Keyboard } from 'react-native';
 import Colors from './../../utils/colors';
 import { Section, Header, Button, Footer, RoundTextField as TextField } from './../../components'
 import { MainContext } from './../../context';
@@ -39,17 +38,21 @@ export const LandingPage = (props) => {
     context.setIsLoading(true);
     Keyboard.dismiss();
     try {
-      const response = await Authenticate.login({ email, password });
+      const response = await Authenticate.login(email, password);
       if (response.success) {
-        context.setIsLoading(false);
-        context.setSnackbar("Welcome!", "success")
+        if (response.data.token && response.data.token !== '') {
+          context.setIsLoading(false);
+          context.setAuth(response.data);
+          context.setSnackbar("Welcome!", "success")
+        } else {
+          context.setSnackbar(rest.message);
+        }
       } else {
         context.setIsLoading(false);
         throw(response);
       }
     } catch (error) {
       context.setIsLoading(false);
-      console.error('Landing Error:', error)
       context.setSnackbar("Sorry! Invalid email or password.", "error")
     }
   }
@@ -79,9 +82,16 @@ export const LandingPage = (props) => {
     }
   }, [focused])
 
+  // Once login is successful, this will take you to the proteted route.
+  useEffect(() => {
+    if (context.loggedIn === 'true') {
+      props.navigation.replace('Protected_Route');
+    }
+    context.setIsLoading(false);
+  }, [context.loggedIn])
+
   return (
-    <SafeAreaView style={[backgroundStyle, { height: Dimensions.get('window').height }, { paddingBottom: 20}]}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+    <SafeAreaView style={[backgroundStyle, { height: Dimensions.get('window').height }, { paddingTop: 20}]}>
       <Header />
       <View style={[backgroundStyle, styles.sectionContainer]}>
         <Section>
@@ -90,8 +100,8 @@ export const LandingPage = (props) => {
         <View>
           <TextField hideLabel={true} value={email} onChange={(val) => setEmail(val.toLowerCase().trim())} placeholder={'Email'} />
           <TextField hideLabel={true} value={password} onChange={setPassword} placeholder={'Password'} secureTextEntry />
-          <Button onPress={onLogin}>
-            <AntIcon name="check" size={18}/> Lets Roll!
+          <Button backgroundColor={ Colors.success } color={ Colors.dark } onPress={onLogin}>
+            Login
           </Button>
         </View>
         <Section>

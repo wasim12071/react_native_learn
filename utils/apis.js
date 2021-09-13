@@ -22,14 +22,13 @@ export const responseHandler = (response) => {
   }
 }
 
-export const GLOBAL = 'application_global';
+export const GLOBAL = 'aplication_global';
 
 export function setupGlobal() {
   let gl = {};
   global[GLOBAL] = gl;
   return gl;
 }
-
 export function getGlobal() {
   return global[GLOBAL];
 }

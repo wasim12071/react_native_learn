@@ -4,20 +4,46 @@ import * as ProtectedRoutes from './screens/ProtectedRoutes'
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useColorScheme, StatusBar } from 'react-native';
 
 const Stack = createStackNavigator();
 
 export const AppRoutes = () => {
+  const isDarkMode = useColorScheme() === 'dark';
   const createName = key => key.split('_').join(' '); 
+
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName={'Splash'} screenOptions={{ headerShown: false }}>
-          {
-            Object.keys(UnprotectedRoutes).map((key) => (
-              <Stack.Screen key={key} name={createName(key)} component={UnprotectedRoutes[key]} />
-            ))
-          }
+      <NavigationContainer ref={navigationRef}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name={'Signout_Route'}>
+            {
+              () => (
+                <>
+                  <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} translucent />
+                  <Stack.Navigator initialRouteName={'Splash'} screenOptions={{ headerShown: false }}>
+                    {
+                      Object.keys(UnprotectedRoutes).map((key) => (
+                        <Stack.Screen key={key} name={createName(key)} component={UnprotectedRoutes[key]} />
+                      ))
+                    }
+                  </Stack.Navigator>
+                </>
+              )
+            }
+          </Stack.Screen>
+          <Stack.Screen name={'Protected_Route'}>
+            {
+              () => {
+                <>
+                  <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} translucent />
+                  <Stack.Navigator initialRouteName={'Home'} screenOptions={{ headerShown: false }} >
+                    <Stack.Screen name={'Home'}  component={ProtectedRoutes.Home} />
+                  </Stack.Navigator>
+                </>
+              }
+            }
+          </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
